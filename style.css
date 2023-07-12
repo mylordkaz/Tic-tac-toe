@@ -3,6 +3,9 @@ margin: 0;
 padding: 0;
 box-sizing: border-box;
 }
+:root{
+    --winner: #878787
+}
 body{
     color: beige;
     background-color: rgb(66, 66, 66);
@@ -32,10 +35,10 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--orange);
     font-size: 120px;
     border-right: 2px solid;
     border-bottom: 2px solid;
+    
 }
 .box:nth-child(3n) {
     border-right: none;
