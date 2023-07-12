@@ -2,8 +2,10 @@ const gameBoard = (() => {
     let boxes = Array.from(document.getElementsByClassName("box"));
     let space = Array(9).fill(null);
     let player = document.getElementById('playerText');
+
     let playerChoice = "X";
     let aiChoice = "O";
+
     let winner = getComputedStyle(document.body).getPropertyValue('--winner');
     const restartBtn = document.getElementById('restartBtn');
     let gameWon = false;
@@ -14,21 +16,40 @@ const gameBoard = (() => {
   
     const boxClicked = (e) => {
         if (gameWon) return;
+
       const id = e.target.id;
   
-      if (!space[id]) {
-        space[id] = playerChoice;
-        e.target.innerText = playerChoice;
-      }
-      if (win() !== false) {
-        player.innerHTML = "You win!";
-  
-        let blocks = win();
-        blocks.forEach(box => boxes[box].style.backgroundColor = winner);
-        gameWon = true;
-        return;
-      }
+        if (!space[id]) {
+            space[id] = playerChoice;
+            e.target.innerText = playerChoice;
+
+            if (win()) {
+                player.innerHTML = "You win!";
+                highlight(win())
+                gameWon = true;
+                return;
+            }
+            if (boardFull()){
+                player.innerHTML = "Draw! Try again!";
+                gameWon = true;
+                return;
+            }
+            aiMove();
+            if(win()){
+                player.innerHTML = " AI win!";
+                highlight(win())
+                gameWon = true;
+                return;
+            }
+            if (boardFull()){
+                player.innerHTML = "Draw! Try again!";
+                gameWon = true;
+                return;
+            };
+        }
     };
+
+
   
     const restart = () => {
       space.fill(null);
@@ -64,6 +85,25 @@ const gameBoard = (() => {
         }
       }
       return false;
+    }
+    function boardFull(){
+        return space.every(box => box !== null);
+    }
+    function highlight(winningBoxes){
+        winningBoxes.forEach(box => boxes[box].style.backgroundColor = winner)
+    }
+    function aiMove(){
+        const availableMoves = [];
+
+        for ( let i = 0; i < space.length; i++){
+            if(space[i] === null){
+                availableMoves.push(i);
+            }
+        }
+        const randomIndex = Math.floor(Math.random() * availableMoves.length);
+        const aiMoveIndex = availableMoves[randomIndex];
+        space[aiMoveIndex] = aiChoice;
+        boxes[aiMoveIndex].innerText = aiChoice;
     }
   
     return {
