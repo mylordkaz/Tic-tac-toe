@@ -10,12 +10,15 @@ box-sizing: border-box;
 }
 body{
     color: beige;
-    background-color: rgb(66, 66, 66);
+    background-color: rgb(32, 32, 32);
     font-family: 'Architects Daughter', cursive;
 }
 .title{
     font-size: 54px;
     text-align: center;
+}
+#playerText{
+    padding-top: 30px;
 }
 .container{
     padding: 40px;
@@ -29,7 +32,7 @@ body{
     width: 300px;
     display: flex;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 60px;
 }
 .box{
     height: 100px;
